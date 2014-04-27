@@ -38,9 +38,27 @@ public class Catalogue {
 		listeClient.remove(vehicule);
 	}
 	
-	public Vehicule getVehicule(String typeVehicule) {
-		Vehicule vehicule = null;
-		return vehicule;
+	public Vehicule getVehicule(int typeVehicule) {
+		for (Vehicule element : listeVehicule) {
+			if (element.isDisponible()) {
+				if (typeVehicule == 1) {
+					if (element instanceof Simple) {
+						return element;
+					}
+				}
+				else if (typeVehicule == 2) {
+					if (element instanceof Prestige) {
+						return element;
+					}
+				}
+				else {
+					if (element instanceof Utilitaire) {
+						return element;
+					}
+				}
+			}
+		}	
+		return null;
 	}
 
 	public Date getDernierMAJ() {

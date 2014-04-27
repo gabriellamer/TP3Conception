@@ -12,9 +12,10 @@ public class Contrat {
 	private double KMdepart;
 	private String status;
 	private double prix;
-	private ArrayList<Vehicule> listeChauffeur = new ArrayList<Vehicule>();
+	private Paiement paiement;
+	private ArrayList<Chauffeur> listeChauffeur = new ArrayList<Chauffeur>();
 	
-	public Contrat(Date datePret, Date dateRetourPrevue, Vehicule vehicule, ArrayList<Vehicule> listeChauffeur) {
+	public Contrat(Date datePret, Date dateRetourPrevue, Vehicule vehicule, ArrayList<Chauffeur> listeChauffeur) {
 		this.dateReservation = null; // TODO date d'aujourd'hui
 		this.datePret = datePret;
 		this.dateRetourPrevue = dateRetourPrevue;
@@ -22,11 +23,11 @@ public class Contrat {
 		this.vehicule = vehicule;
 		this.KMdepart = vehicule.getKm();
 		this.status = null; // TODO Verifier la date
-		this.prix = vehicule.getPrix() + 200; // TODO * nbJour
+		paiement = new Paiement(vehicule.getPrix() + 200); // TODO * nbJour
 		this.listeChauffeur = listeChauffeur;
 	}
 	
-	public void modifier(Date datePret, Date dateRetourPrevue, Vehicule vehicule, ArrayList<Vehicule> listeChauffeur) {
+	public void modifier(Date datePret, Date dateRetourPrevue, Vehicule vehicule, ArrayList<Chauffeur> listeChauffeur) {
 		this.dateReservation = null; // TODO date d'aujourd'hui
 		this.datePret = datePret;
 		this.dateRetourPrevue = dateRetourPrevue;
@@ -34,12 +35,12 @@ public class Contrat {
 		this.vehicule = vehicule;
 		this.KMdepart = vehicule.getKm();
 		this.status = null; // TODO Verifier la date
-		this.prix = vehicule.getPrix() + 200; // TODO * nbJour
+		paiement.modifier(vehicule.getPrix() + 200); // TODO * nbJour
 		this.listeChauffeur = listeChauffeur;
 	}
 	
 	public void rembourserClient() {
-		System.out.println("Remboursement du client en cours...");
+		paiement.rembourserClient();
 	}
 
 	public Date getDateReservation() {
@@ -106,11 +107,11 @@ public class Contrat {
 		this.prix = prix;
 	}
 
-	public ArrayList<Vehicule> getListeChauffeur() {
+	public ArrayList<Chauffeur> getListeChauffeur() {
 		return listeChauffeur;
 	}
 
-	public void setListeChauffeur(ArrayList<Vehicule> listeChauffeur) {
+	public void setListeChauffeur(ArrayList<Chauffeur> listeChauffeur) {
 		this.listeChauffeur = listeChauffeur;
 	}
 	
