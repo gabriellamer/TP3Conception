@@ -9,6 +9,7 @@ import controleur.Agence;
 import model.Chauffeur;
 import model.Client;
 import model.Contrat;
+import model.PersonneException;
 import model.Vehicule;
 
 public class Program {
@@ -330,7 +331,11 @@ public class Program {
 		System.out.println("Saisissez la date de naissance du chauffeur : ");
 		dateNaissance = saisitDate(1900, 2000);
 		
-		chauffeur = new Chauffeur(nom, prenom, dateNaissance, sexe, noPermis);
+		try {
+			chauffeur = new Chauffeur(nom, prenom, dateNaissance, sexe, noPermis);
+		} catch (PersonneException e) {
+			e.printErreur();
+		}
 		
 		return chauffeur;
 	}

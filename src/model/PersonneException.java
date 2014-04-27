@@ -10,4 +10,8 @@ public class PersonneException extends Exception {
 	public String getErreur() {
 		return erreur;
 	}
+	
+	public void printErreur() {
+		System.out.print(erreur);
+	}
 }
