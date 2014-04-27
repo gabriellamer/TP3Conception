@@ -27,7 +27,7 @@ public class Agence {
 	public void modifierClient(String noPermis, String noTelephone, String typeCarte, String noCarte, 
 			  String expiration, String cvv, int noCivique, String noApp, String nomRue, 
 			  String ville, String province, String codePostal) {
-
+		
 	}
 	
 	public void supprimerClient(Client client) {
@@ -40,7 +40,7 @@ public class Agence {
 	}
 	
 	public void modifierContrat(Contrat contrat, Client client, Vehicule vehicule, Calendar datePret, Calendar dateRetourPrevue, ArrayList<Chauffeur> listeChauffeur) {
-		
+		client.modifierContrat(contrat, vehicule, datePret, dateRetourPrevue, listeChauffeur);
 	}
 	
 	public void supprimerContrat(Client client, Contrat contrat) {

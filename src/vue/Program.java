@@ -22,24 +22,23 @@ public class Program {
 		locateur = new Agence("Le Locateur - Edition GP");
 		
 		do {
-			choix = afficherMenu();
-			if (!Interface.validerEntier(choix, 1, 6))
-				System.out.println("Veuillez entrer un nombre entier entre 1 et 6");
-		} while (!Interface.validerEntier(choix, 1, 6));
-		
-		iChoix = Integer.parseInt(choix);
-		
-		switch (iChoix) {
-			case 1 : ajouterClient(); break;
-			case 2 : modifierClient(); break;
-			case 3 : supprimerClient(); break;
-			case 4 : ajouterReservation(); break;
-			case 5 : modifierReservation(); break;
-			case 6 : supprimerReservation(); break;
-		}
-		
-		
-
+			do {
+				choix = afficherMenu();
+				if (!Interface.validerEntier(choix, 1, 7))
+					System.out.println("Veuillez entrer un nombre entier entre 1 et 6");
+			} while (!Interface.validerEntier(choix, 1, 7));
+			
+			iChoix = Integer.parseInt(choix);
+			
+			switch (iChoix) {
+				case 1 : ajouterClient(); break;
+				case 2 : modifierClient(); break;
+				case 3 : supprimerClient(); break;
+				case 4 : ajouterReservation(); break;
+				case 5 : modifierReservation(); break;
+				case 6 : supprimerReservation(); break;
+			}
+		} while (iChoix < 6);
 	}
 	
 	public static String afficherMenu() {
@@ -50,6 +49,7 @@ public class Program {
 		System.out.println("4. Ajouter une reservation");
 		System.out.println("5. Modifier une reservation");
 		System.out.println("6. Supprimer une reservation");
+		System.out.println("7. Quitter");
 		System.out.println("Votre choix : ");
 		
 		return Interface.lecture();
@@ -71,11 +71,6 @@ public class Program {
 		
 		ArrayList<Chauffeur> listeChauffeur = null;
 		Chauffeur chauffeur;
-		String nom;
-		String prenom;
-		char sexe;
-		String noPermis;
-		Calendar dateNaissance;
 		Calendar datePret;
 		Calendar dateRetourPrevue;
 		
@@ -84,7 +79,12 @@ public class Program {
 		System.out.println("Nouvelle reservation!");
 		
 		client = saisitClient();
-		vehicule = saisitVehicule();
+		
+		do {
+			vehicule = saisitVehicule();
+			if (vehicule == null)
+				System.out.println("Il n'y a pas de vehicule disponible selon vos criteres de recherche!");
+		} while (vehicule == null);
 		
 		System.out.println("Votre vehicule : ");
 		System.out.println("Immatriculation : " + vehicule.getImmatriculation());
@@ -159,7 +159,11 @@ public class Program {
 		} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
 		
 		if ((choixModifier == 'O') || (choixModifier == 'o'))
-			vehicule = saisitVehicule();
+			do {
+				vehicule = saisitVehicule();
+				if (vehicule == null)
+					System.out.println("Il n'y a pas de vehicule disponible selon vos criteres de recherche!");
+			} while (vehicule == null);
 		else
 			vehicule = contrat.getVehicule();
 		

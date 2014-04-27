@@ -18,7 +18,7 @@ public class Client extends Personne {
 				  String noTelephone, Calendar dateAdhesion, Calendar dateExpiration,
 				  int noCivique, String noApp, String nomRue, String ville,
 				  String province, String codePostal, String typeCarte, String noCarte,
-			      String expiration, String cvv, ArrayList<Contrat> listeContrat) throws PersonneException {
+			      String expiration, String cvv) throws PersonneException {
 		super(nom, prenom, dateNaissance, sexe, noPermis);
 		this.noTelephone = noTelephone;
 		this.dateAdhesion = dateAdhesion;
@@ -28,7 +28,7 @@ public class Client extends Personne {
 		this.noCarte = noCarte;
 		this.expiration = expiration;
 		this.cvv = cvv;
-		this.listeContrat = listeContrat;
+		this.listeContrat = null;
 	}
 	
 	public void modifier(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis,
