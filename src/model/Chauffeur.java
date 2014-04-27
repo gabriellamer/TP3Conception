@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class Chauffeur extends Personne {
 
-	public Chauffeur(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis) {
+	public Chauffeur(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis) throws PersonneException {
 		super(nom, prenom, dateNaissance, sexe, noPermis);
 	}
 	
