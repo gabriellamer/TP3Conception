@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Contrat {
+	private int noContrat;
 	private Date dateReservation;
 	private Date datePret;
 	private Date dateRetourPrevue;
@@ -15,7 +16,8 @@ public class Contrat {
 	private Paiement paiement;
 	private ArrayList<Chauffeur> listeChauffeur = new ArrayList<Chauffeur>();
 	
-	public Contrat(Date datePret, Date dateRetourPrevue, Vehicule vehicule, ArrayList<Chauffeur> listeChauffeur) {
+	public Contrat(int noContrat, Date datePret, Date dateRetourPrevue, Vehicule vehicule, ArrayList<Chauffeur> listeChauffeur) {
+		this.noContrat = noContrat;
 		this.dateReservation = null; // TODO date d'aujourd'hui
 		this.datePret = datePret;
 		this.dateRetourPrevue = dateRetourPrevue;
@@ -39,6 +41,14 @@ public class Contrat {
 		this.listeChauffeur = listeChauffeur;
 	}
 	
+	public int getNoContrat() {
+		return noContrat;
+	}
+
+	public void setNoContrat(int noContrat) {
+		this.noContrat = noContrat;
+	}
+
 	public void rembourserClient() {
 		paiement.rembourserClient();
 	}
@@ -105,6 +115,14 @@ public class Contrat {
 
 	public void setPrix(double prix) {
 		this.prix = prix;
+	}
+
+	public Paiement getPaiement() {
+		return paiement;
+	}
+
+	public void setPaiement(Paiement paiement) {
+		this.paiement = paiement;
 	}
 
 	public ArrayList<Chauffeur> getListeChauffeur() {

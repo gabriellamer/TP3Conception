@@ -47,6 +47,31 @@ public class Client extends Personne {
 		this.cvv = cvv;
 		this.listeContrat = listeContrat;
 	}
+	
+	public void ajouterContrat(Vehicule vehicule, Date datePret, Date dateRetourPrevu,
+							   ArrayList<Chauffeur> listeChauffeur) {
+		Contrat dernierContrat = listeContrat.get(listeContrat.size() - 1);
+		int prochainNoContrat = dernierContrat.getNoContrat() + 1;
+		
+		Contrat contrat = new Contrat(prochainNoContrat, datePret, dateRetourPrevu, vehicule, listeChauffeur);
+		listeContrat.add(contrat);
+	}
+	
+	public void modifierContrat(Contrat contrat, Vehicule vehicule, Date datePret, Date dateRetourPrevue,
+								ArrayList<Chauffeur> listeChauffeur) {
+		contrat.modifier(datePret, dateRetourPrevue, vehicule, listeChauffeur);
+		
+		for (Contrat c : listeContrat) {
+			if(c.getNoContrat() == contrat.getNoContrat()) {
+				c = contrat;
+				break;
+			}
+		}
+	}
+	
+	public void supprimerContrat(Contrat contrat) {
+		listeContrat.remove(contrat);
+	}
 
 	public String getNoTelephone() {
 		return noTelephone;
