@@ -121,9 +121,9 @@ public class Program {
 		System.out.println("Prix : " + vehicule.getPrix());
 		
 		System.out.println("Saisissez la date de pret : ");
-		datePret = saisitDate();
+		datePret = saisitDate(2014, 2020);
 		System.out.println("Saisissez la date de retour prevue : ");
-		dateRetourPrevue = saisitDate();
+		dateRetourPrevue = saisitDate(2014, 2020);
 		
 		do {
 			System.out.println("Voulez-vous ajouter un chaffeur ? (O/N)");
@@ -144,7 +144,7 @@ public class Program {
 			noPermis = Interface.lecture();
 			
 			System.out.println("Saisissez la date de naissance du chauffeur : ");
-			dateNaissance = saisitDate();
+			dateNaissance = saisitDate(1900, 2000);
 			
 			chauffeur = new Chauffeur(nom, prenom, dateNaissance, sexe, noPermis);
 			
@@ -160,7 +160,7 @@ public class Program {
 		
 	}
 	
-	public static GregorianCalendar saisitDate() {	
+	public static GregorianCalendar saisitDate(int anneeDebut, int anneeFin) {	
 		String naissanceAnnee;
 		String naissanceJour;
 		String naissanceMois;
@@ -171,9 +171,9 @@ public class Program {
 		do {
 			System.out.println("Saississez l'annee : ");
 			naissanceAnnee = Interface.lecture();
-			if (!Interface.validerEntier(naissanceAnnee, 1900, 2000))
+			if (!Interface.validerEntier(naissanceAnnee, anneeDebut, anneeFin))
 				System.out.println("Veuillez entrer une annee valide!");
-		} while (!Interface.validerEntier(naissanceAnnee, 1900, 2000));
+		} while (!Interface.validerEntier(naissanceAnnee, anneeDebut, anneeFin));
 		
 		do {
 			System.out.println("Saississez le mois : ");
