@@ -35,7 +35,8 @@ public class Agence {
 	}
 	
 	public void ajouterContrat(Client client, Vehicule vehicule, Calendar datePret, Calendar dateRetourPrevue, ArrayList<Chauffeur> listeChauffeur) {
-		
+		client.ajouterContrat(vehicule, datePret, dateRetourPrevue, listeChauffeur);
+		vehicule.setDisponible(false);
 	}
 	
 	public void modifierContrat(Contrat contrat, Client client, Vehicule vehicule, Calendar datePret, Calendar dateRetourPrevue, ArrayList<Chauffeur> listeChauffeur) {
@@ -43,7 +44,8 @@ public class Agence {
 	}
 	
 	public void supprimerContrat(Client client, Contrat contrat) {
-		
+		contrat.getVehicule().setDisponible(true);
+		client.supprimerContrat(contrat);
 	}
 
 	public Catalogue getCatalogue() {

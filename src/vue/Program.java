@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import controleur.Agence;
 import model.Chauffeur;
 import model.Client;
+import model.Contrat;
 import model.Vehicule;
 
 public class Program {
@@ -63,11 +64,6 @@ public class Program {
 		
 	}
 	public static void ajouterReservation() {
-		int compteurClient = 1;
-		String choixClient;
-		int iChoixClient = 0;
-		String choixVehicule;
-		int iChoixVehicule = 0;
 		char autreChauffeur;
 		Vehicule vehicule;
 		Client client;
@@ -86,33 +82,8 @@ public class Program {
 		
 		System.out.println("Nouvelle reservation!");
 		
-		do {
-			System.out.println("Selectionner un client");
-			for (Client element : locateur.getCatalogue().getListeClient()) {
-				System.out.println(compteurClient++ + ". " + element.getNoPermis() + " - " + element.getNom() + ", " + element.getPrenom());
-			}
-			System.out.println("Votre choix : ");
-			choixClient = Interface.lecture();	
-			if (!Interface.validerEntier(choixClient, 1, compteurClient-1))
-				System.out.println("Veuillez entrer un nombre entier entre 1 et " + (compteurClient-1));
-		} while (!Interface.validerEntier(choixClient, 1, compteurClient-1));
-		
-		iChoixClient = Integer.parseInt(choixClient);
-		client = locateur.getCatalogue().getListeClient().get(iChoixClient);
-		
-		do {
-			System.out.println("Selectionner un type de vehicule");
-			System.out.println("1. Vehicule simple");
-			System.out.println("2. Vehicule prestige");
-			System.out.println("3. Vehicule utilitaire");
-			System.out.println("Votre choix : ");
-			choixVehicule = Interface.lecture();
-			if (!Interface.validerEntier(choixClient, 1, 3))
-				System.out.println("Veuillez entrer un nombre entier entre 1 et 3");
-		} while (!Interface.validerEntier(choixClient, 1, 3));
-		
-		iChoixVehicule = Integer.parseInt(choixVehicule);
-		vehicule = locateur.getCatalogue().getVehicule(iChoixVehicule);
+		client = saisitClient();
+		vehicule = saisitVehicule();
 		
 		System.out.println("Votre vehicule : ");
 		System.out.println("Immatriculation : " + vehicule.getImmatriculation());
@@ -126,7 +97,7 @@ public class Program {
 		dateRetourPrevue = saisitDate(2014, 2020);
 		
 		do {
-			System.out.println("Voulez-vous ajouter un chaffeur ? (O/N)");
+			System.out.println("Voulez-vous ajouter un chauffeur ? (O/N)");
 			autreChauffeur = Interface.lecture().charAt(0);
 			if ((autreChauffeur != 'O') || (autreChauffeur != 'o') || (autreChauffeur != 'N') || (autreChauffeur != 'n')) {
 				System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
@@ -134,30 +105,264 @@ public class Program {
 		} while ((autreChauffeur != 'O') || (autreChauffeur != 'o') || (autreChauffeur != 'N') || (autreChauffeur != 'n'));
 		
 		while ((autreChauffeur == 'O') || (autreChauffeur == 'o')) {
-			System.out.println("Saississez le prenom du chauffeur : ");
-			prenom = Interface.lecture();
-			System.out.println("Saississez le nom du chauffeur : ");
-			nom = Interface.lecture();
-			System.out.println("Saississez le sexe du chauffeur : ");
-			sexe = Interface.lecture().charAt(0);
-			System.out.println("Saississez le numero de permis de conduire : ");
-			noPermis = Interface.lecture();
 			
-			System.out.println("Saisissez la date de naissance du chauffeur : ");
-			dateNaissance = saisitDate(1900, 2000);
-			
-			chauffeur = new Chauffeur(nom, prenom, dateNaissance, sexe, noPermis);
-			
+			chauffeur = saisitChauffeur();
 			listeChauffeur.add(chauffeur);
+			
+			do {
+				System.out.println("Voulez-vous ajouter un chauffeur ? (O/N)");
+				autreChauffeur = Interface.lecture().charAt(0);
+				if ((autreChauffeur != 'O') || (autreChauffeur != 'o') || (autreChauffeur != 'N') || (autreChauffeur != 'n')) {
+					System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+				}
+			} while ((autreChauffeur != 'O') || (autreChauffeur != 'o') || (autreChauffeur != 'N') || (autreChauffeur != 'n'));
 		}
 		locateur.ajouterContrat(client, vehicule, datePret, dateRetourPrevue, listeChauffeur);
 	}
 				
 	public static void modifierReservation() {
+		Client client;
+		Contrat contrat;
+		Vehicule vehicule;
+		Chauffeur chauffeur;
+		Calendar datePret;
+		Calendar dateRetourPrevue;
+		String choixContrat;
+		int iChoixContrat;				
+		int compteurContrat = 1;
+		char choixModifier;
+		ArrayList<Chauffeur> listeChauffeur = null;
 		
+		client = saisitClient();
+			
+		do {
+			System.out.println("Selectionner un contrat a modifier:");
+			for (Contrat element : client.getListeContrat()) {
+				System.out.println(compteurContrat++ + ". Contrat #" + element.getNoContrat() + " - " + element.getStatus());
+			}
+			System.out.println("Votre choix : ");
+			choixContrat = Interface.lecture();
+			if (!Interface.validerEntier(choixContrat, 1, compteurContrat-1))
+				System.out.println("Veuillez entrer un entier entre 1 et " + (compteurContrat-1));
+		} while (!Interface.validerEntier(choixContrat, 1, compteurContrat-1)); 
+		
+		iChoixContrat = Integer.parseInt(choixContrat);	
+		contrat = client.getListeContrat().get(iChoixContrat);
+		
+		do {
+			System.out.println("Voulez-vous modifier le vehicule? (O/N)");
+			choixModifier = Interface.lecture().charAt(0);
+			if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+				System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+			}
+		} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+		
+		if ((choixModifier == 'O') || (choixModifier == 'o'))
+			vehicule = saisitVehicule();
+		else
+			vehicule = contrat.getVehicule();
+		
+		do {
+			System.out.println("Voulez-vous modifier la date de pret? (O/N)");
+			choixModifier = Interface.lecture().charAt(0);
+			if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+				System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+			}
+		} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+		
+		if ((choixModifier == 'O') || (choixModifier == 'o')) {
+			System.out.println("Saisissez la date de pret : ");
+			datePret = saisitDate(2014, 2020);
+		}
+		else {
+			datePret = contrat.getDatePret();
+		}
+		
+		do {
+			System.out.println("Voulez-vous modifier la date de retour prevue? (O/N)");
+			choixModifier = Interface.lecture().charAt(0);
+			if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+				System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+			}
+		} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+		
+		if ((choixModifier == 'O') || (choixModifier == 'o')) {
+			System.out.println("Saisissez la date de retour prevue : ");
+			dateRetourPrevue = saisitDate(2014, 2020);
+		}
+		else {
+			dateRetourPrevue = contrat.getDateRetourPrevue();
+		}
+		
+		do {
+			System.out.println("Voulez-vous modifier la liste des chauffeurs? (O/N)");
+			choixModifier = Interface.lecture().charAt(0);
+			if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+				System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+			}
+		} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+
+		if ((choixModifier == 'O') || (choixModifier == 'o')) {
+			for (Chauffeur element : contrat.getListeChauffeur()) {
+				do {
+					System.out.println("Voulez-vous modifier le chauffeur " + element.getPrenom() + " " + element.getNom() + "? (O/N)");
+					choixModifier = Interface.lecture().charAt(0);
+					if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+						System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+					}
+				} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+				
+				if ((choixModifier == 'O') || (choixModifier == 'o')) {
+					do {
+						System.out.println("Voulez-vous modifier (M) ou supprimer (S) ce chauffeur?");
+						choixModifier = Interface.lecture().charAt(0);
+						if ((choixModifier != 'M') || (choixModifier != 'm') || (choixModifier != 'S') || (choixModifier != 's')) {
+							System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+						}
+					} while ((choixModifier != 'M') || (choixModifier != 'm') || (choixModifier != 'S') || (choixModifier != 's'));
+					
+					if ((choixModifier == 'S') || (choixModifier == 's')) {
+						contrat.getListeChauffeur().remove(element);
+					}
+					else {
+						do {
+							System.out.println("Voulez-vous modifier le prenom du chauffeur? (O/N)");
+							choixModifier = Interface.lecture().charAt(0);
+							if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+								System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+							}
+						} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+						
+						if ((choixModifier == 'O') || (choixModifier == 'o')) {
+							System.out.println("Saisissez le prenom du chauffeur : ");
+							element.setPrenom(Interface.lecture());
+						}
+						
+						do {
+							System.out.println("Voulez-vous modifier le nom du chauffeur? (O/N)");
+							choixModifier = Interface.lecture().charAt(0);
+							if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+								System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+							}
+						} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+						
+						if ((choixModifier == 'O') || (choixModifier == 'o')) {
+							System.out.println("Saisissez le nom du chauffeur : ");
+							element.setNom(Interface.lecture());
+						}
+						
+						do {
+							System.out.println("Voulez-vous modifier le numero de permis de conduire du chauffeur? (O/N)");
+							choixModifier = Interface.lecture().charAt(0);
+							if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+								System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+							}
+						} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+						
+						if ((choixModifier == 'O') || (choixModifier == 'o')) {
+							System.out.println("Saisissez le numero de permis de conduire du chauffeur : ");
+							element.setNoPermis(Interface.lecture());
+						}
+						
+						do {
+							System.out.println("Voulez-vous modifier le prenom du chauffeur? (O/N)");
+							choixModifier = Interface.lecture().charAt(0);
+							if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+								System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+							}
+						} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+						
+						if ((choixModifier == 'O') || (choixModifier == 'o')) {
+							System.out.println("Saisissez la date de naissance du chauffeur : ");
+							element.setDateNaissance(saisitDate(1900, 2000));
+						}
+					}
+				}
+			}
+			
+			
+			do {
+				System.out.println("Voulez-vous ajouter un chauffeur ? (O/N)");
+				choixModifier = Interface.lecture().charAt(0);
+				if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+					System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+				}
+			} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+			
+			while ((choixModifier == 'O') || (choixModifier == 'o')) {
+				
+				chauffeur = saisitChauffeur();
+				contrat.getListeChauffeur().add(chauffeur);
+				
+				do {
+					System.out.println("Voulez-vous ajouter un chauffeur ? (O/N)");
+					choixModifier = Interface.lecture().charAt(0);
+					if ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n')) {
+						System.out.println("Vous devez choisir entre Oui (O) ou Non(N)!");
+					}
+				} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
+			}
+		}
+		else {
+			listeChauffeur = contrat.getListeChauffeur();
+		}
+			
+		locateur.modifierContrat(contrat, client, vehicule, datePret, dateRetourPrevue, listeChauffeur);
 	}
-	public static void supprimerReservation() {
+	
+	public static Chauffeur saisitChauffeur() {
+		Chauffeur chauffeur = null;
+		String prenom;
+		String nom;
+		char sexe;
+		String noPermis;
+		Calendar dateNaissance;
 		
+		System.out.println("Saississez le prenom du chauffeur : ");
+		prenom = Interface.lecture();
+		System.out.println("Saississez le nom du chauffeur : ");
+		nom = Interface.lecture();
+		System.out.println("Saississez le sexe du chauffeur : ");
+		sexe = Interface.lecture().charAt(0);
+		System.out.println("Saississez le numero de permis de conduire : ");
+		noPermis = Interface.lecture();
+		
+		System.out.println("Saisissez la date de naissance du chauffeur : ");
+		dateNaissance = saisitDate(1900, 2000);
+		
+		chauffeur = new Chauffeur(nom, prenom, dateNaissance, sexe, noPermis);
+		
+		return chauffeur;
+	}
+	
+	
+	
+	public static void supprimerReservation() {
+		Client client;
+		Contrat contrat;
+		int compteurContrat = 1;
+		
+		String choixContrat;
+		int iChoixContrat;
+		
+		client = saisitClient();
+		
+		do {
+			System.out.println("Selectionner un contrat a supprimer:");
+			for (Contrat element : client.getListeContrat()) {
+				System.out.println(compteurContrat++ + ". Contrat #" + element.getNoContrat() + " - " + element.getStatus());
+			}
+			System.out.println("Votre choix : ");
+			choixContrat = Interface.lecture();
+			if (!Interface.validerEntier(choixContrat, 1, compteurContrat-1))
+				System.out.println("Veuillez entrer un entier entre 1 et " + (compteurContrat-1));
+		} while (!Interface.validerEntier(choixContrat, 1, compteurContrat-1)); 
+		
+		iChoixContrat = Integer.parseInt(choixContrat);
+		
+		contrat = client.getListeContrat().get(iChoixContrat);
+		
+		locateur.supprimerContrat(client, contrat);
 	}
 	
 	public static GregorianCalendar saisitDate(int anneeDebut, int anneeFin) {	
@@ -195,4 +400,50 @@ public class Program {
 		
 		return new GregorianCalendar(iNaissanceAnnee, iNaissanceMois, iNaissanceJour);
 	}
+	
+	public static Vehicule saisitVehicule() {
+		Vehicule vehicule = null;
+		String choixVehicule;
+		int iChoixVehicule;
+		
+		do {
+			System.out.println("Selectionner un type de vehicule");
+			System.out.println("1. Vehicule simple");
+			System.out.println("2. Vehicule prestige");
+			System.out.println("3. Vehicule utilitaire");
+			System.out.println("Votre choix : ");
+			choixVehicule = Interface.lecture();
+			if (!Interface.validerEntier(choixVehicule, 1, 3))
+				System.out.println("Veuillez entrer un nombre entier entre 1 et 3");
+		} while (!Interface.validerEntier(choixVehicule, 1, 3));
+		
+		iChoixVehicule = Integer.parseInt(choixVehicule);
+		vehicule = locateur.getCatalogue().getVehicule(iChoixVehicule);
+		
+		return vehicule;
+	}
+	
+	public static Client saisitClient() {
+		Client client = null;
+		int compteurClient = 1;
+		String choixClient;
+		int iChoixClient = 0;
+		
+		do {
+			System.out.println("Selectionner un client");
+			for (Client element : locateur.getCatalogue().getListeClient()) {
+				System.out.println(compteurClient++ + ". " + element.getNoPermis() + " - " + element.getNom() + ", " + element.getPrenom());
+			}
+			System.out.println("Votre choix : ");
+			choixClient = Interface.lecture();	
+			if (!Interface.validerEntier(choixClient, 1, compteurClient-1))
+				System.out.println("Veuillez entrer un nombre entier entre 1 et " + (compteurClient-1));
+		} while (!Interface.validerEntier(choixClient, 1, compteurClient-1));
+		
+		iChoixClient = Integer.parseInt(choixClient);
+		client = locateur.getCatalogue().getListeClient().get(iChoixClient);
+		
+		return client;
+	}
+	
 }

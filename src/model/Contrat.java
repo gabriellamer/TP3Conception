@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Contrat {
 	private int noContrat;
@@ -17,26 +18,39 @@ public class Contrat {
 	private ArrayList<Chauffeur> listeChauffeur = new ArrayList<Chauffeur>();
 	
 	public Contrat(int noContrat, Calendar datePret, Calendar dateRetourPrevue, Vehicule vehicule, ArrayList<Chauffeur> listeChauffeur) {
+		GregorianCalendar currentDate = new GregorianCalendar(); // Date courante
+		
 		this.noContrat = noContrat;
-		this.dateReservation = null; // TODO date d'aujourd'hui
+		this.dateReservation = new GregorianCalendar(currentDate.get(GregorianCalendar.YEAR), currentDate.get(GregorianCalendar.MONTH), currentDate.get(GregorianCalendar.DAY_OF_MONTH));
 		this.datePret = datePret;
 		this.dateRetourPrevue = dateRetourPrevue;
 		this.dateRetour = null;
 		this.vehicule = vehicule;
 		this.KMdepart = vehicule.getKm();
-		this.status = null; // TODO Verifier la date
+		
+		if (currentDate.compareTo(datePret) > 0)
+			this.status = "Reserve";
+		else
+			this.status = "Loue";
+		
 		paiement = new Paiement(vehicule.getPrix() + 200); // TODO * nbJour
 		this.listeChauffeur = listeChauffeur;
 	}
 	
 	public void modifier(Calendar datePret, Calendar dateRetourPrevue, Vehicule vehicule, ArrayList<Chauffeur> listeChauffeur) {
-		this.dateReservation = null; // TODO date d'aujourd'hui
+		GregorianCalendar currentDate = new GregorianCalendar(); // Date courante
+		
 		this.datePret = datePret;
 		this.dateRetourPrevue = dateRetourPrevue;
 		this.dateRetour = null;
 		this.vehicule = vehicule;
 		this.KMdepart = vehicule.getKm();
-		this.status = null; // TODO Verifier la date
+		
+		if (currentDate.compareTo(datePret) > 0)
+			this.status = "Reserve";
+		else
+			this.status = "Loue";
+		
 		paiement.modifier(vehicule.getPrix() + 200); // TODO * nbJour
 		this.listeChauffeur = listeChauffeur;
 	}
