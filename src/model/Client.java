@@ -35,7 +35,7 @@ public class Client extends Personne {
 			String noTelephone, Calendar dateAdhesion, Calendar dateExpiration,
 			int noCivique, String noApp, String nomRue, String ville,
 			String province, String codePostal, String typeCarte, String noCarte,
-			String expiration, String cvv, ArrayList<Contrat> listeContrat) {
+			String expiration, String cvv, ArrayList<Contrat> listeContrat) throws PersonneException {
 		super.modifier(nom, prenom, dateNaissance, sexe, noPermis);
 		this.noTelephone = noTelephone;
 		this.dateAdhesion = dateAdhesion;
@@ -67,6 +67,10 @@ public class Client extends Personne {
 				break;
 			}
 		}
+	}
+	
+	private void valideNoTelephone(String noTelephone) throws PersonneException {
+		
 	}
 	
 	public void supprimerContrat(Contrat contrat) {

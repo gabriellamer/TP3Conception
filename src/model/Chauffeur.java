@@ -8,7 +8,7 @@ public class Chauffeur extends Personne {
 		super(nom, prenom, dateNaissance, sexe, noPermis);
 	}
 	
-	public void modifier(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis) {
+	public void modifier(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis) throws PersonneException {
 		super.modifier(nom, prenom, dateNaissance, sexe, noPermis);
 	}
 }

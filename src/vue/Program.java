@@ -236,7 +236,11 @@ public class Program {
 						
 						if ((choixModifier == 'O') || (choixModifier == 'o')) {
 							System.out.println("Saisissez le prenom du chauffeur : ");
-							element.setPrenom(Interface.lecture());
+							try {
+								element.setPrenom(Interface.lecture());
+							} catch (PersonneException e) {
+								e.printErreur();
+							}
 						}
 						
 						do {
@@ -249,7 +253,11 @@ public class Program {
 						
 						if ((choixModifier == 'O') || (choixModifier == 'o')) {
 							System.out.println("Saisissez le nom du chauffeur : ");
-							element.setNom(Interface.lecture());
+							try {
+								element.setNom(Interface.lecture());
+							} catch (PersonneException e) {
+								e.printErreur();
+							}
 						}
 						
 						do {
@@ -262,7 +270,11 @@ public class Program {
 						
 						if ((choixModifier == 'O') || (choixModifier == 'o')) {
 							System.out.println("Saisissez le numero de permis de conduire du chauffeur : ");
-							element.setNoPermis(Interface.lecture());
+							try {
+								element.setNoPermis(Interface.lecture());
+							} catch (PersonneException e) {
+								e.printErreur();
+							}
 						}
 						
 						do {
@@ -275,12 +287,15 @@ public class Program {
 						
 						if ((choixModifier == 'O') || (choixModifier == 'o')) {
 							System.out.println("Saisissez la date de naissance du chauffeur : ");
-							element.setDateNaissance(saisitDate(1900, 2000));
+							try {
+								element.setDateNaissance(saisitDate(1900, 2000));
+							} catch (PersonneException e) {
+								e.printErreur();
+							}
 						}
 					}
 				}
 			}
-			
 			
 			do {
 				System.out.println("Voulez-vous ajouter un chauffeur ? (O/N)");

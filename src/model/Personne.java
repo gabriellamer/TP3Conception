@@ -23,7 +23,13 @@ abstract class Personne {
 		this.noPermis = noPermis;
 	}
 	
-	public void modifier(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis) {
+	public void modifier(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis) throws PersonneException {
+		valideNom(nom);
+		validePrenom(prenom);
+		valideDateNaissance(dateNaissance);
+		valideSexe(sexe);
+		valideNoPermis(noPermis);
+		
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
@@ -71,7 +77,8 @@ abstract class Personne {
 		return nom;
 	}
 
-	public void setNom(String nom) {
+	public void setNom(String nom) throws PersonneException {
+		valideNom(nom);
 		this.nom = nom;
 	}
 
@@ -79,7 +86,8 @@ abstract class Personne {
 		return prenom;
 	}
 
-	public void setPrenom(String prenom) {
+	public void setPrenom(String prenom) throws PersonneException {
+		validePrenom(prenom);
 		this.prenom = prenom;
 	}
 
@@ -87,7 +95,8 @@ abstract class Personne {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(Calendar dateNaissance) {
+	public void setDateNaissance(Calendar dateNaissance) throws PersonneException {
+		valideDateNaissance(dateNaissance);
 		this.dateNaissance = dateNaissance;
 	}
 
@@ -95,7 +104,8 @@ abstract class Personne {
 		return sexe;
 	}
 
-	public void setSexe(char sexe) {
+	public void setSexe(char sexe) throws PersonneException {
+		valideSexe(sexe);
 		this.sexe = sexe;
 	}
 
@@ -103,7 +113,8 @@ abstract class Personne {
 		return noPermis;
 	}
 
-	public void setNoPermis(String noPermis) {
+	public void setNoPermis(String noPermis) throws PersonneException {
+		valideNoPermis(noPermis);
 		this.noPermis = noPermis;
 	}
 }
