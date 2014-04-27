@@ -13,20 +13,11 @@ public class Client extends Personne {
 	private ArrayList<Contrat> listeContrat;
 	
 	public Client(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis,
-<<<<<<< HEAD
 				  String noTelephone, int noCivique, String noApp, String nomRue, String ville,
 				  String province, String codePostal, String typeCarte, String noCarte,
 			      String expiration, String cvv) throws PersonneException, ClientException {
 		super(nom, prenom, dateNaissance, sexe, noPermis);
-=======
-				  String noTelephone,
-				  int noCivique, String noApp, String nomRue, String ville,
-				  String province, String codePostal, String typeCarte, String noCarte,
-			      String expiration, String cvv) throws PersonneException {
-		super(nom, prenom, dateNaissance, sexe, noPermis);
 	
-		this.noTelephone = noTelephone;
->>>>>>> FETCH_HEAD
 		this.adresse = new Adresse(noCivique, noApp, nomRue, ville, province, codePostal);
 		
 		valideNoTelephone(noTelephone);

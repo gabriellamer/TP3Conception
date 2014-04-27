@@ -6,6 +6,7 @@ import java.util.Calendar;
 import model.Catalogue;
 import model.Chauffeur;
 import model.Client;
+import model.ClientException;
 import model.Contrat;
 import model.PersonneException;
 import model.Vehicule;
@@ -27,6 +28,8 @@ public class Agence {
 			client = new Client(nom, prenom, dateNaissance, sexe, noPermis, noTelephone, noCivique, noApp, nomRue, ville, province, codePostal, typeCarte, noCarte, expiration, cvv);
 			catalogue.ajouterClient(client);
 		} catch (PersonneException e) {
+			e.printErreur();
+		} catch (ClientException e) {
 			e.printErreur();
 		}
 	}
