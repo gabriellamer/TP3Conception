@@ -66,7 +66,7 @@ abstract class Personne {
 		if(!noPermis.matches(".{13}"))
 			throw new PersonneException("Le numero du permis doit avoir 13 caracteres!");
 		
-		if(!noPermis.matches("[a-zA-Z0-9]"))
+		if(!noPermis.matches("[a-zA-Z0-9]*"))
 			throw new PersonneException("Le numero du permis doit etre alphanumerique!");
 		
 		if(!noPermis.matches("^[a-zA-Z][0-9]{12}"))
