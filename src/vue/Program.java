@@ -2,7 +2,6 @@ package vue;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import controleur.Agence;
@@ -22,24 +21,23 @@ public class Program {
 		locateur = new Agence("Le Locateur - Edition GP");
 		
 		do {
-			choix = afficherMenu();
-			if (!Interface.validerEntier(choix, 1, 6))
-				System.out.println("Veuillez entrer un nombre entier entre 1 et 6");
-		} while (!Interface.validerEntier(choix, 1, 6));
-		
-		iChoix = Integer.parseInt(choix);
-		
-		switch (iChoix) {
-			case 1 : ajouterClient(); break;
-			case 2 : modifierClient(); break;
-			case 3 : supprimerClient(); break;
-			case 4 : ajouterReservation(); break;
-			case 5 : modifierReservation(); break;
-			case 6 : supprimerReservation(); break;
-		}
-		
-		
-
+			do {
+				choix = afficherMenu();
+				if (!Interface.validerEntier(choix, 1, 7))
+					System.out.println("Veuillez entrer un nombre entier entre 1 et 6");
+			} while (!Interface.validerEntier(choix, 1, 7));
+			
+			iChoix = Integer.parseInt(choix);
+			
+			switch (iChoix) {
+				case 1 : ajouterClient(); break;
+				case 2 : modifierClient(); break;
+				case 3 : supprimerClient(); break;
+				case 4 : ajouterReservation(); break;
+				case 5 : modifierReservation(); break;
+				case 6 : supprimerReservation(); break;
+			}
+		} while (iChoix < 7);
 	}
 	
 	public static String afficherMenu() {
@@ -50,19 +48,88 @@ public class Program {
 		System.out.println("4. Ajouter une reservation");
 		System.out.println("5. Modifier une reservation");
 		System.out.println("6. Supprimer une reservation");
+		System.out.println("7. Quitter");
 		System.out.println("Votre choix : ");
 		
 		return Interface.lecture();
 	}
 	
 	public static void ajouterClient() {
+		Interface.clearConsole();
+		System.out.println("Creation d'un nouveau client!");
 		
+		String nom;
+		String prenom;
+		Calendar dateNaissance;
+		char sexe;
+		String noPermis;
+		String noTelephone;
+		Calendar dateExpiration;
+		String typeCarte;
+		String noCarte;
+		String expiration;
+		String cvv;
+		int noCivique;
+		String noApp;
+		String nomRue;
+		String ville;
+		String province;
+		String codePostal;
+		
+		String temp;
+		
+		System.out.println("Saisissez votre nom :");
+		nom = Interface.lecture();
+		System.out.println("Saisissez votre prenom :");
+		prenom = Interface.lecture();
+		System.out.println("Saisissez votre date de naissance :");
+		dateNaissance = saisitDate(1900, 2000);
+		System.out.println("Saisissez votre sexe :");
+		sexe = Interface.lecture().charAt(0);
+		System.out.println("Saisissez votre numero de permis de conduire (X012345678921) :");
+		noPermis = Interface.lecture();
+		System.out.println("Saisissez votre numero de telephone (0123456789) :");
+		noTelephone = Interface.lecture();
+		System.out.println("Saisissez votre type de carte de credit :");
+		typeCarte = Interface.lecture();
+		System.out.println("Saisissez votre numero de carte de credit :");
+		noCarte = Interface.lecture();
+		System.out.println("Saisissez le cvv de votre carte de credit :");
+		cvv = Interface.lecture();
+		System.out.println("Saisissez la date d'expiration de votre carte de credit (MM/AA) :");
+		expiration = Interface.lecture();
+		
+		do {
+			System.out.println("Saisissez votre numero civique :");
+			temp = Interface.lecture();
+			if (!Interface.validerEntier(temp, 1, 999999999)) {
+				System.out.println("Veuillez saisir un numero civique entier!");
+			}
+		} while (!Interface.validerEntier(temp, 1, 999999999));
+		
+		noCivique = Integer.parseInt(temp);
+		
+		System.out.println("Saisissez votre numero d'appartement :");
+		noApp = Interface.lecture();
+		System.out.println("Saisissez votre nom de rue :");
+		nomRue = Interface.lecture();
+		System.out.println("Saisissez votre ville :");
+		ville = Interface.lecture();
+		System.out.println("Saisissez votre province :");
+		province = Interface.lecture();
+		System.out.println("Saisissez votre code postal :");
+		codePostal = Interface.lecture();
+		
+		locateur.ajouterClient(nom, prenom, dateNaissance, sexe, noPermis, noTelephone, typeCarte, noCarte, expiration, cvv, noCivique, noApp, nomRue, ville, province, codePostal);
 	}
 	public static void modifierClient() {
 		
 	}
 	public static void supprimerClient() {
+		Client client;
 		
+		client = saisitClient();	
+		locateur.supprimerClient(client);
 	}
 	public static void ajouterReservation() {
 		char autreChauffeur;
@@ -71,20 +138,20 @@ public class Program {
 		
 		ArrayList<Chauffeur> listeChauffeur = null;
 		Chauffeur chauffeur;
-		String nom;
-		String prenom;
-		char sexe;
-		String noPermis;
-		Calendar dateNaissance;
 		Calendar datePret;
 		Calendar dateRetourPrevue;
 		
 		Interface.clearConsole();
 		
-		System.out.println("Nouvelle reservation!");
+		System.out.println("Creation d'une nouvelle reservation!");
 		
 		client = saisitClient();
-		vehicule = saisitVehicule();
+		
+		do {
+			vehicule = saisitVehicule();
+			if (vehicule == null)
+				System.out.println("Il n'y a pas de vehicule disponible selon vos criteres de recherche!");
+		} while (vehicule == null);
 		
 		System.out.println("Votre vehicule : ");
 		System.out.println("Immatriculation : " + vehicule.getImmatriculation());
@@ -159,7 +226,11 @@ public class Program {
 		} while ((choixModifier != 'O') || (choixModifier != 'o') || (choixModifier != 'N') || (choixModifier != 'n'));
 		
 		if ((choixModifier == 'O') || (choixModifier == 'o'))
-			vehicule = saisitVehicule();
+			do {
+				vehicule = saisitVehicule();
+				if (vehicule == null)
+					System.out.println("Il n'y a pas de vehicule disponible selon vos criteres de recherche!");
+			} while (vehicule == null);
 		else
 			vehicule = contrat.getVehicule();
 		

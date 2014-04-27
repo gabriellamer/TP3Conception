@@ -51,7 +51,7 @@ public class Contrat {
 		else
 			this.status = "Loue";
 		
-		paiement.modifier(vehicule.getPrix() + 200); // TODO * nbJour
+		paiement.modifier(vehicule.getPrix() + 210); // TODO * nbJour
 		this.listeChauffeur = listeChauffeur;
 	}
 	
