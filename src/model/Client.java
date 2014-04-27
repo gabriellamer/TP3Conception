@@ -14,15 +14,16 @@ public class Client extends Personne {
 	private String cvv;
 	private ArrayList<Contrat> listeContrat;
 	
-	public Client(String nom, String prenom, Date dateNaissance, char sexe,
-			String noTelephone, Date dateAdhesion, Date dateExpiration,
-			Adresse adresse, String typeCarte, String noCarte,
-			String expiration, String cvv, ArrayList<Contrat> listeContrat) {
-		super(nom, prenom, dateNaissance, sexe);
+	public Client(String nom, String prenom, Date dateNaissance, char sexe, String noPermis,
+				  String noTelephone, Date dateAdhesion, Date dateExpiration,
+				  int noCivique, String noApp, String nomRue, String ville,
+				  String province, String codePostal, String typeCarte, String noCarte,
+			      String expiration, String cvv, ArrayList<Contrat> listeContrat) {
+		super(nom, prenom, dateNaissance, sexe, noPermis);
 		this.noTelephone = noTelephone;
 		this.dateAdhesion = dateAdhesion;
 		this.dateExpiration = dateExpiration;
-		this.adresse = adresse;
+		this.adresse = new Adresse(noCivique, noApp, nomRue, ville, province, codePostal);
 		this.typeCarte = typeCarte;
 		this.noCarte = noCarte;
 		this.expiration = expiration;
@@ -30,15 +31,16 @@ public class Client extends Personne {
 		this.listeContrat = listeContrat;
 	}
 	
-	public void modifier(String nom, String prenom, Date dateNaissance, char sexe,
+	public void modifier(String nom, String prenom, Date dateNaissance, char sexe, String noPermis,
 			String noTelephone, Date dateAdhesion, Date dateExpiration,
-			Adresse adresse, String typeCarte, String noCarte,
+			int noCivique, String noApp, String nomRue, String ville,
+			String province, String codePostal, String typeCarte, String noCarte,
 			String expiration, String cvv, ArrayList<Contrat> listeContrat) {
-		super.modifier(nom, prenom, dateNaissance, sexe);
+		super.modifier(nom, prenom, dateNaissance, sexe, noPermis);
 		this.noTelephone = noTelephone;
 		this.dateAdhesion = dateAdhesion;
 		this.dateExpiration = dateExpiration;
-		this.adresse = adresse;
+		this.adresse.modifier(noCivique, noApp, nomRue, ville, province, codePostal);;
 		this.typeCarte = typeCarte;
 		this.noCarte = noCarte;
 		this.expiration = expiration;

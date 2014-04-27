@@ -7,19 +7,22 @@ abstract class Personne {
 	protected String prenom;
 	protected Date dateNaissance;
 	protected char sexe;
+	protected String noPermis;
 	
-	public Personne(String nom, String prenom, Date dateNaissance, char sexe) {
+	public Personne(String nom, String prenom, Date dateNaissance, char sexe, String noPermis) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
 		this.sexe = sexe;
+		this.noPermis = noPermis;
 	}
 	
-	public void modifier(String nom, String prenom, Date dateNaissance, char sexe) {
+	public void modifier(String nom, String prenom, Date dateNaissance, char sexe, String noPermis) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
 		this.sexe = sexe;
+		this.noPermis = noPermis;
 	}
 
 	public String getNom() {
@@ -52,5 +55,13 @@ abstract class Personne {
 
 	public void setSexe(char sexe) {
 		this.sexe = sexe;
+	}
+
+	public String getNoPermis() {
+		return noPermis;
+	}
+
+	public void setNoPermis(String noPermis) {
+		this.noPermis = noPermis;
 	}
 }
