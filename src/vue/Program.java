@@ -2,7 +2,6 @@ package vue;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import controleur.Agence;
@@ -38,7 +37,7 @@ public class Program {
 				case 5 : modifierReservation(); break;
 				case 6 : supprimerReservation(); break;
 			}
-		} while (iChoix < 6);
+		} while (iChoix < 7);
 	}
 	
 	public static String afficherMenu() {
@@ -56,13 +55,81 @@ public class Program {
 	}
 	
 	public static void ajouterClient() {
+		Interface.clearConsole();
+		System.out.println("Creation d'un nouveau client!");
 		
+		String nom;
+		String prenom;
+		Calendar dateNaissance;
+		char sexe;
+		String noPermis;
+		String noTelephone;
+		Calendar dateExpiration;
+		String typeCarte;
+		String noCarte;
+		String expiration;
+		String cvv;
+		int noCivique;
+		String noApp;
+		String nomRue;
+		String ville;
+		String province;
+		String codePostal;
+		
+		String temp;
+		
+		System.out.println("Saisissez votre nom :");
+		nom = Interface.lecture();
+		System.out.println("Saisissez votre prenom :");
+		prenom = Interface.lecture();
+		System.out.println("Saisissez votre date de naissance :");
+		dateNaissance = saisitDate(1900, 2000);
+		System.out.println("Saisissez votre sexe :");
+		sexe = Interface.lecture().charAt(0);
+		System.out.println("Saisissez votre numero de permis de conduire (X012345678921) :");
+		noPermis = Interface.lecture();
+		System.out.println("Saisissez votre numero de telephone (0123456789) :");
+		noTelephone = Interface.lecture();
+		System.out.println("Saisissez votre type de carte de credit :");
+		typeCarte = Interface.lecture();
+		System.out.println("Saisissez votre numero de carte de credit :");
+		noCarte = Interface.lecture();
+		System.out.println("Saisissez le cvv de votre carte de credit :");
+		cvv = Interface.lecture();
+		System.out.println("Saisissez la date d'expiration de votre carte de credit (MM/AA) :");
+		expiration = Interface.lecture();
+		
+		do {
+			System.out.println("Saisissez votre numero civique :");
+			temp = Interface.lecture();
+			if (!Interface.validerEntier(temp, 1, 999999999)) {
+				System.out.println("Veuillez saisir un numero civique entier!");
+			}
+		} while (!Interface.validerEntier(temp, 1, 999999999));
+		
+		noCivique = Integer.parseInt(temp);
+		
+		System.out.println("Saisissez votre numero d'appartement :");
+		noApp = Interface.lecture();
+		System.out.println("Saisissez votre nom de rue :");
+		nomRue = Interface.lecture();
+		System.out.println("Saisissez votre ville :");
+		ville = Interface.lecture();
+		System.out.println("Saisissez votre province :");
+		province = Interface.lecture();
+		System.out.println("Saisissez votre code postal :");
+		codePostal = Interface.lecture();
+		
+		locateur.ajouterClient(nom, prenom, dateNaissance, sexe, noPermis, noTelephone, typeCarte, noCarte, expiration, cvv, noCivique, noApp, nomRue, ville, province, codePostal);
 	}
 	public static void modifierClient() {
 		
 	}
 	public static void supprimerClient() {
+		Client client;
 		
+		client = saisitClient();	
+		locateur.supprimerClient(client);
 	}
 	public static void ajouterReservation() {
 		char autreChauffeur;
@@ -76,7 +143,7 @@ public class Program {
 		
 		Interface.clearConsole();
 		
-		System.out.println("Nouvelle reservation!");
+		System.out.println("Creation d'une nouvelle reservation!");
 		
 		client = saisitClient();
 		

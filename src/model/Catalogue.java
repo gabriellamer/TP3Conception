@@ -18,8 +18,13 @@ public class Catalogue {
 		listeClient.add(client);
 	}
 	
-	public void modifierClient(Client client) {
-		
+	public void modifierClient(Client client, String ancienPermis) {
+		for (Client element : listeClient) {
+			if (element.getNoPermis() == ancienPermis) {
+				element = client;
+				break;
+			}
+		}
 	}
 	
 	public void supprimerClient(Client client) {
@@ -31,7 +36,6 @@ public class Catalogue {
 	}
 	
 	public void modifierVehicule(Vehicule vehicule) {
-		
 	}
 	
 	public void supprimerVehicule(Vehicule vehicule) {
