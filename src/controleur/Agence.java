@@ -1,7 +1,7 @@
 package controleur;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import model.Catalogue;
 import model.Chauffeur;
@@ -34,11 +34,11 @@ public class Agence {
 		
 	}
 	
-	public void ajouterContrat(Client client, Vehicule vehicule, Date datePret, Date dateRetourPrevue, ArrayList<Chauffeur> listeChauffeur) {
+	public void ajouterContrat(Client client, Vehicule vehicule, Calendar datePret, Calendar dateRetourPrevue, ArrayList<Chauffeur> listeChauffeur) {
 		
 	}
 	
-	public void modifierContrat(Contrat contrat, Client client, Vehicule vehicule, Date datePret, Date dateRetourPrevue, ArrayList<Chauffeur> listeChauffeur) {
+	public void modifierContrat(Contrat contrat, Client client, Vehicule vehicule, Calendar datePret, Calendar dateRetourPrevue, ArrayList<Chauffeur> listeChauffeur) {
 		
 	}
 	

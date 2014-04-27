@@ -1,12 +1,12 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Client extends Personne {
 	private String noTelephone;
-	private Date dateAdhesion;
-	private Date dateExpiration;
+	private Calendar dateAdhesion;
+	private Calendar dateExpiration;
 	private Adresse adresse;
 	private String typeCarte;
 	private String noCarte;
@@ -14,8 +14,8 @@ public class Client extends Personne {
 	private String cvv;
 	private ArrayList<Contrat> listeContrat;
 	
-	public Client(String nom, String prenom, Date dateNaissance, char sexe, String noPermis,
-				  String noTelephone, Date dateAdhesion, Date dateExpiration,
+	public Client(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis,
+				  String noTelephone, Calendar dateAdhesion, Calendar dateExpiration,
 				  int noCivique, String noApp, String nomRue, String ville,
 				  String province, String codePostal, String typeCarte, String noCarte,
 			      String expiration, String cvv, ArrayList<Contrat> listeContrat) {
@@ -31,8 +31,8 @@ public class Client extends Personne {
 		this.listeContrat = listeContrat;
 	}
 	
-	public void modifier(String nom, String prenom, Date dateNaissance, char sexe, String noPermis,
-			String noTelephone, Date dateAdhesion, Date dateExpiration,
+	public void modifier(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis,
+			String noTelephone, Calendar dateAdhesion, Calendar dateExpiration,
 			int noCivique, String noApp, String nomRue, String ville,
 			String province, String codePostal, String typeCarte, String noCarte,
 			String expiration, String cvv, ArrayList<Contrat> listeContrat) {
@@ -48,7 +48,7 @@ public class Client extends Personne {
 		this.listeContrat = listeContrat;
 	}
 	
-	public void ajouterContrat(Vehicule vehicule, Date datePret, Date dateRetourPrevu,
+	public void ajouterContrat(Vehicule vehicule, Calendar datePret, Calendar dateRetourPrevu,
 							   ArrayList<Chauffeur> listeChauffeur) {
 		Contrat dernierContrat = listeContrat.get(listeContrat.size() - 1);
 		int prochainNoContrat = dernierContrat.getNoContrat() + 1;
@@ -57,7 +57,7 @@ public class Client extends Personne {
 		listeContrat.add(contrat);
 	}
 	
-	public void modifierContrat(Contrat contrat, Vehicule vehicule, Date datePret, Date dateRetourPrevue,
+	public void modifierContrat(Contrat contrat, Vehicule vehicule, Calendar datePret, Calendar dateRetourPrevue,
 								ArrayList<Chauffeur> listeChauffeur) {
 		contrat.modifier(datePret, dateRetourPrevue, vehicule, listeChauffeur);
 		
@@ -81,19 +81,19 @@ public class Client extends Personne {
 		this.noTelephone = noTelephone;
 	}
 
-	public Date getDateAdhesion() {
+	public Calendar getDateAdhesion() {
 		return dateAdhesion;
 	}
 
-	public void setDateAdhesion(Date dateAdhesion) {
+	public void setDateAdhesion(Calendar dateAdhesion) {
 		this.dateAdhesion = dateAdhesion;
 	}
 
-	public Date getDateExpiration() {
+	public Calendar getDateExpiration() {
 		return dateExpiration;
 	}
 
-	public void setDateExpiration(Date dateExpiration) {
+	public void setDateExpiration(Calendar dateExpiration) {
 		this.dateExpiration = dateExpiration;
 	}
 

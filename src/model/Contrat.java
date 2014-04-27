@@ -1,14 +1,14 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Contrat {
 	private int noContrat;
-	private Date dateReservation;
-	private Date datePret;
-	private Date dateRetourPrevue;
-	private Date dateRetour;
+	private Calendar dateReservation;
+	private Calendar datePret;
+	private Calendar dateRetourPrevue;
+	private Calendar dateRetour;
 	private Vehicule vehicule;
 	private double KMdepart;
 	private String status;
@@ -16,7 +16,7 @@ public class Contrat {
 	private Paiement paiement;
 	private ArrayList<Chauffeur> listeChauffeur = new ArrayList<Chauffeur>();
 	
-	public Contrat(int noContrat, Date datePret, Date dateRetourPrevue, Vehicule vehicule, ArrayList<Chauffeur> listeChauffeur) {
+	public Contrat(int noContrat, Calendar datePret, Calendar dateRetourPrevue, Vehicule vehicule, ArrayList<Chauffeur> listeChauffeur) {
 		this.noContrat = noContrat;
 		this.dateReservation = null; // TODO date d'aujourd'hui
 		this.datePret = datePret;
@@ -29,7 +29,7 @@ public class Contrat {
 		this.listeChauffeur = listeChauffeur;
 	}
 	
-	public void modifier(Date datePret, Date dateRetourPrevue, Vehicule vehicule, ArrayList<Chauffeur> listeChauffeur) {
+	public void modifier(Calendar datePret, Calendar dateRetourPrevue, Vehicule vehicule, ArrayList<Chauffeur> listeChauffeur) {
 		this.dateReservation = null; // TODO date d'aujourd'hui
 		this.datePret = datePret;
 		this.dateRetourPrevue = dateRetourPrevue;
@@ -53,35 +53,35 @@ public class Contrat {
 		paiement.rembourserClient();
 	}
 
-	public Date getDateReservation() {
+	public Calendar getDateReservation() {
 		return dateReservation;
 	}
 
-	public void setDateReservation(Date dateReservation) {
+	public void setDateReservation(Calendar dateReservation) {
 		this.dateReservation = dateReservation;
 	}
 
-	public Date getDatePret() {
+	public Calendar getDatePret() {
 		return datePret;
 	}
 
-	public void setDatePret(Date datePret) {
+	public void setDatePret(Calendar datePret) {
 		this.datePret = datePret;
 	}
 
-	public Date getDateRetourPrevue() {
+	public Calendar getDateRetourPrevue() {
 		return dateRetourPrevue;
 	}
 
-	public void setDateRetourPrevue(Date dateRetourPrevue) {
+	public void setDateRetourPrevue(Calendar dateRetourPrevue) {
 		this.dateRetourPrevue = dateRetourPrevue;
 	}
 
-	public Date getDateRetour() {
+	public Calendar getDateRetour() {
 		return dateRetour;
 	}
 
-	public void setDateRetour(Date dateRetour) {
+	public void setDateRetour(Calendar dateRetour) {
 		this.dateRetour = dateRetour;
 	}
 

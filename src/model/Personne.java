@@ -1,15 +1,15 @@
 package model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 abstract class Personne {
 	protected String nom;
 	protected String prenom;
-	protected Date dateNaissance;
+	protected Calendar dateNaissance;
 	protected char sexe;
 	protected String noPermis;
 	
-	public Personne(String nom, String prenom, Date dateNaissance, char sexe, String noPermis) {
+	public Personne(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
@@ -17,7 +17,7 @@ abstract class Personne {
 		this.noPermis = noPermis;
 	}
 	
-	public void modifier(String nom, String prenom, Date dateNaissance, char sexe, String noPermis) {
+	public void modifier(String nom, String prenom, Calendar dateNaissance, char sexe, String noPermis) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
@@ -41,11 +41,11 @@ abstract class Personne {
 		this.prenom = prenom;
 	}
 
-	public Date getDateNaissance() {
+	public Calendar getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(Date dateNaissance) {
+	public void setDateNaissance(Calendar dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
