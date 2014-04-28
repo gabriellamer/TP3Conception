@@ -1,16 +1,18 @@
 package model;
 
+// Classe abstraite representant un vehicule disponible a la location
 public abstract class Vehicule {
-	protected String immatriculation;
-	protected String moteur;
-	protected String accessoires;
-	protected String marque;
-	protected String modele;
-	protected double km;
-	protected int nbPlace;
-	protected boolean disponible;
-	protected double prix;
+	protected String immatriculation;  // Immatriculation du vehicule
+	protected String moteur;           // Marque du vehicule
+	protected String accessoires;      // Accessoires du vehicule
+	protected String marque;           // Marque du vehicule
+	protected String modele;           // Modele du vehicule
+	protected double km;               // Kilometrage du vehicule
+	protected int nbPlace;             // Nombre de place dans le vehicule
+	protected boolean disponible;      // Represente si le vehicule est presentemetnt disponible
+	protected double prix;             // Prix du vehicule a la location
 	
+	// Constructeur representant un vehicule
 	public Vehicule(String immatriculation, String moteur, String accessoires, String marque, String modele, double km, int nbPlace, boolean disponible, double prix) {
 		this.immatriculation = immatriculation;
 		this.moteur = moteur;
@@ -23,6 +25,7 @@ public abstract class Vehicule {
 		this.prix = prix;
 	}
 	
+	// Methode permettant de modifier un vehicule
 	public void modifier(String immatriculation, String moteur, String accessoires, String marque, String modele, double km, int nbPlace, boolean disponible, double prix) {
 		this.immatriculation = immatriculation;
 		this.moteur = moteur;
@@ -35,6 +38,8 @@ public abstract class Vehicule {
 		this.prix = prix;
 	}
 
+	// Les getters et les setters se trouvent ci-dessous
+	
 	public String getImmatriculation() {
 		return immatriculation;
 	}

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 public class Interface {
 	
+	// Methode permettant d'effectuer la lecture au clavier de chaine de caracteres
 	public static String lecture ()
 	{
 		String str = "";
@@ -21,22 +22,20 @@ public class Interface {
 		return str;
 	}
 	
-	public static void clearConsole()
-	{
-		System.out.print("\n\n\n\n");
-	}
-	
+	// Methode permettant de valider si une chaine de caractere est de valeur entiere et si ce nombre se trouve entre deux bornes
 	public static boolean validerEntier(String valeur, int plageDebut, int plageFin)
 	{
 		int choixUtilisateur;
 		
 		try { 
+			// Validation si la chaine de caractere est de valeur entiere
 			choixUtilisateur = Integer.parseInt(valeur); 
 	    } 
 		catch(NumberFormatException e) { 
 	        return false; 
 	    }
 		
+		// Si la chaine de caractere est de valeur entiere, validation si ce nombre se trouve entre deux bornes
 		if((choixUtilisateur >= plageDebut) && (choixUtilisateur <= plageFin))
 			return true;
 

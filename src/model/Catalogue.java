@@ -5,19 +5,20 @@ import java.util.Date;
 
 public class Catalogue {
 	
-	private Date dernierMAJ;
-	private ArrayList<Client> listeClient = new ArrayList<Client>();
-	private ArrayList<Vehicule> listeVehicule = new ArrayList<Vehicule>();
+	private ArrayList<Client> listeClient = new ArrayList<Client>();        // Liste des clients
+	private ArrayList<Vehicule> listeVehicule = new ArrayList<Vehicule>();  // Liste des vehicules
 	
+	// Constructeur vide de la classe catalogue
 	public Catalogue() {
-		listeClient = null;
-		listeVehicule = null;
+
 	}
 	
+	// Permet d'ajouter un client a la liste des clients
 	public void ajouterClient(Client client) {
 		listeClient.add(client);
 	}
 	
+    // Permet de remplacer un client dans la liste des clients lors d'une modification
 	public void modifierClient(Client client, String ancienPermis) {
 		for (Client element : listeClient) {
 			if (element.getNoPermis() == ancienPermis) {
@@ -27,36 +28,40 @@ public class Catalogue {
 		}
 	}
 	
+	// Permet de supprimer un client de la liste des clients
 	public void supprimerClient(Client client) {
 		listeClient.remove(client);
 	}
 	
+	// Permet d'ajouter un vehicule a la liste des vehicules
 	public void ajouterVehicule(Vehicule vehicule) {
 		listeVehicule.add(vehicule);
 	}
 	
+	// Permettrait de modifier un vehicule de la liste des vehicules (Ne fait pas partie de nos cas d'utilisation)
 	public void modifierVehicule(Vehicule vehicule) {
 	}
 	
+	// Permettrait de supprimer un vehicule de la liste des vehicules (Ne fait pas partie de nos cas d'utilisation)
 	public void supprimerVehicule(Vehicule vehicule) {
-		listeClient.remove(vehicule);
 	}
 	
+	// Permet d'obtenir le prochain vehicule disponible selon le type de vehicule demander par le client
 	public Vehicule getVehicule(int typeVehicule) {
 		for (Vehicule element : listeVehicule) {
 			if (element.isDisponible()) {
-				if (typeVehicule == 1) {
+				if (typeVehicule == 1) {               // Vehicule simple
 					if (element instanceof Simple) {
 						return element;
 					}
 				}
-				else if (typeVehicule == 2) {
+				else if (typeVehicule == 2) {          // Vehicule prestige
 					if (element instanceof Prestige) {
 						return element;
 					}
 				}
 				else {
-					if (element instanceof Utilitaire) {
+					if (element instanceof Utilitaire) { // Vehicule utilitaire
 						return element;
 					}
 				}
@@ -65,14 +70,8 @@ public class Catalogue {
 		return null;
 	}
 
-	public Date getDernierMAJ() {
-		return dernierMAJ;
-	}
-
-	public void setDernierMAJ(Date dernierMAJ) {
-		this.dernierMAJ = dernierMAJ;
-	}
-
+	// Les getters et les setters se trouvent ci-dessous
+	
 	public ArrayList<Client> getListeClient() {
 		return listeClient;
 	}
